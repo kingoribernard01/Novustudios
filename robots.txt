@@ -1,0 +1,39 @@
+# www.robotstxt.org/
+# https://developers.google.com/search/docs/advanced/robots/create-robots-txt
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://novustudios.co.ke/sitemap.xml
+
+# Disallow admin and other sensitive areas
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /search
+Disallow: /*?*
+Disallow: /*.pdf$
+Disallow: /*.doc$
+
+# Allow all other files
+Allow: /*.css$
+Allow: /*.js$
+
+# Crawl-delay: 10
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /*.css$
+Allow: /*.js$
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Block specific bots
+User-agent: MJ12bot
+Crawl-Delay: 10
+
+# Block AI bots
+User-agent: CCBot
+Disallow: /

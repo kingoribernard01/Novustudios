@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <meta name="description" content="Thank you for contacting Novus Studios. We'll get back to you soon.">
+    <title>Thank You - Novus Studios</title>
+    <link rel="stylesheet" href="templatemo-personal-style.css">
+    <link rel="stylesheet" href="portfolio-styles.css">
+    <style>
+        .thank-you-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        .thank-you-content {
+            max-width: 600px;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .thank-you-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #6366f1;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        h1 {
+            color: #0f172a;
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+        p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .back-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2.5rem;
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+        .back-home:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+        .back-home:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav aria-label="Main navigation" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" aria-label="Novus Studios Home">
+                <img src="images/logo.png" alt="" width="42" height="42">
+                <span class="logo-text">Novus Studios</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="thank-you-container">
+        <div class="thank-you-content">
+            <div class="thank-you-icon">🎉</div>
+            <h1>Message Received!</h1>
+            <p>Thank you for reaching out to Novus Studios. We've received your message and our team will get back to you within 24-48 hours.</p>
+            <p>In the meantime, feel free to explore more of our work or check out our services.</p>
+            <a href="index.html" class="back-home">Back to Home</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="footer-logo" aria-label="Novus Studios Home">
+                    <img src="images/logo.png" alt="" width="36" height="36">
+                    <span class="footer-logo-text">Novus Studios</span>
+                </a>
+                <div class="footer-left">
+                    <p>&copy; <span id="current-year">2025</span> Novus Studios. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

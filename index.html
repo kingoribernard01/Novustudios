@@ -155,6 +155,8 @@
     =========================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://formsubmit.co">
+    <link rel="dns-prefetch" href="https://formsubmit.co">
 
     <!-- ==========================================
          LANGUAGE AND GEOGRAPHIC TARGETING
@@ -1153,40 +1155,78 @@
     
     <!-- Form Submission Handler -->
     <script>
-        // Simple form validation before submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            const form = e.target;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const formStatus = document.getElementById('formStatus');
-            
-            // Basic validation
-            const name = form.querySelector('[name="name"]').value.trim();
-            const email = form.querySelector('[name="email"]').value.trim();
-            const subject = form.querySelector('[name="subject"]').value;
-            const message = form.querySelector('[name="message"]').value.trim();
-            
-            // Validate required fields
-            if (!name || !email || !subject || !message) {
-                formStatus.className = 'form-status error';
-                formStatus.textContent = 'Please fill in all required fields.';
+        (function() {
+            var form = document.getElementById('contactForm');
+            if (!form) return;
+
+            var ENDPOINT = 'https://formsubmit.co/ajax/bernardkingori026@gmail.com';
+            var THANK_YOU_URL = 'thank-you.html';
+
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                return false;
-            }
-            
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                formStatus.className = 'form-status error';
-                formStatus.textContent = 'Please enter a valid email address.';
-                e.preventDefault();
-                return false;
-            }
-            
-            // If validation passes, let the form submit naturally
-            formStatus.className = 'form-status success';
-            formStatus.textContent = 'Sending your message...';
-            submitBtn.disabled = true;
-        });
+
+                var submitBtn = form.querySelector('button[type="submit"]');
+                var formStatus = document.getElementById('formStatus');
+                var btnText = submitBtn.querySelector('.btn-text');
+                var originalBtnHTML = submitBtn.innerHTML;
+
+                // Basic validation
+                var name = form.querySelector('[name="name"]').value.trim();
+                var email = form.querySelector('[name="email"]').value.trim();
+                var subject = form.querySelector('[name="subject"]').value;
+                var message = form.querySelector('[name="message"]').value.trim();
+
+                if (!name || !email || !subject || !message) {
+                    formStatus.className = 'form-status error';
+                    formStatus.textContent = 'Please fill in all required fields.';
+                    return;
+                }
+
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    formStatus.className = 'form-status error';
+                    formStatus.textContent = 'Please enter a valid email address.';
+                    return;
+                }
+
+                // Show loading state
+                formStatus.className = 'form-status success';
+                formStatus.textContent = 'Sending your message...';
+                submitBtn.disabled = true;
+                if (btnText) btnText.textContent = 'Sending...';
+
+                var controller = new AbortController();
+                var timeoutId = setTimeout(function() { controller.abort(); }, 20000);
+
+                fetch(ENDPOINT, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' },
+                    signal: controller.signal
+                })
+                .then(function(response) {
+                    return response.json().then(function(data) {
+                        return { ok: response.ok, data: data };
+                    });
+                })
+                .then(function(result) {
+                    clearTimeout(timeoutId);
+                    if (result.ok && result.data && result.data.success === 'true') {
+                        // Instantly redirect to the thank-you page on the same domain
+                        window.location.href = THANK_YOU_URL;
+                    } else {
+                        throw new Error('FormSubmit rejected the submission');
+                    }
+                })
+                .catch(function() {
+                    clearTimeout(timeoutId);
+                    formStatus.className = 'form-status error';
+                    formStatus.textContent = 'Message could not be sent. Please try again or email us directly.';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHTML;
+                });
+            });
+        })();
     </script>
     
     <!-- Floating WhatsApp Button -->
